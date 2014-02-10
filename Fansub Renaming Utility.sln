@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "File Name Parser", "File Name Parser\File Name Parser.csproj", "{8F531B01-8BDE-4DC9-B4C3-451D43A67741}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{856F02E1-3EA8-4AC1-A38C-1EAA76FE2CD9}"
