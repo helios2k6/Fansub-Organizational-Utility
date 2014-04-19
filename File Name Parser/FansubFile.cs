@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,8 +10,16 @@ namespace FileNameParser
 	/// <summary>
 	/// Represents a media file that was produced by a Fansub group
 	/// </summary>
-	public class FansubFile : IEquatable<FansubFile>
+	[Serializable]
+	public sealed class FansubFile : IEquatable<FansubFile>, ISerializable
 	{
+		#region private static readonly serialization keys
+		private static readonly string FansubGroupKey = "FansubGroupKey";
+		private static readonly string SeriesNameKey = "SeriesName";
+		private static readonly string EpisodeNumberKey = "EpisodeNumberKey";
+		private static readonly string ExtensionKey = "ExtensionKey";
+		#endregion
+
 		/// <summary>
 		/// The name of the fansub group
 		/// </summary>
@@ -44,6 +53,20 @@ namespace FileNameParser
 			SeriesName = seriesName;
 			EpisodeNumber = episodeNumber;
 			Extension = extension;
+		}
+
+		/// <summary>
+		/// Constructs a <see cref="FansubFile"/> based on the streaming
+		/// </summary>
+		/// <param name="streamingInfo">The serialization info object</param>
+		/// <param name="context">The streaming context</param>
+		public FansubFile(SerializationInfo streamingInfo, StreamingContext context)
+			: this(
+			streamingInfo.GetString(FansubGroupKey), 
+			streamingInfo.GetString(SeriesNameKey), 
+			streamingInfo.GetInt32(EpisodeNumberKey), 
+			streamingInfo.GetString(ExtensionKey))
+		{
 		}
 
 		/// <summary>
@@ -91,6 +114,19 @@ namespace FileNameParser
 		public override int GetHashCode()
 		{
 			return FansubGroup.GetHashCode() ^ SeriesName.GetHashCode() ^ EpisodeNumber ^ Extension.GetHashCode();
+		}
+
+		/// <summary>
+		/// Gets the data used for serializing this object
+		/// </summary>
+		/// <param name="info">The serialization info object</param>
+		/// <param name="context">The streaming context for this object</param>
+		public void GetObjectData(SerializationInfo info, StreamingContext context)
+		{
+			info.AddValue(FansubGroupKey, FansubGroup);
+			info.AddValue(SeriesNameKey, SeriesName);
+			info.AddValue(EpisodeNumberKey, EpisodeNumber);
+			info.AddValue(ExtensionKey, Extension);
 		}
 	}
 }
