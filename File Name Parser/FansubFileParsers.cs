@@ -165,7 +165,7 @@ namespace FileNameParser
 
 		#region public factory methods
 		/// <summary>
-		/// Parse a file name that corrosponds to one of the common fansub naming formats. 
+		/// Parse a file name that corresponds to one of the common fansub naming formats. 
 		/// 
 		/// These naming formats are entirely idiosyncratic, so there's no formal grammar available.
 		/// </summary>
